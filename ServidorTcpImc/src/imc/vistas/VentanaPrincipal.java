@@ -116,6 +116,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jScrollPane1.setViewportView(cajaLog);
 
         btnLimpiar.setText("LIMPIAR");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -182,6 +187,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             txtEstado.setText("OFF LINE");
             txtEstado.setForeground(Color.RED);
         }
+    }
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {
+        cajaLog.setText("");
     }
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {
