@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ServidorTcpImc-impl" default="default" basedir="..">
+    <fail message="Please build using Ant 1.8.0 or higher.">
+        <condition>
+            <not>
+                <antversion atleast="1.8.0"/>
+            </not>
+        </condition>
+    </fail>
+    <target name="default" depends="jar"/>
+    <target name="-init-private-properties">
+        <property file="nbproject/private/private.properties"/>
+    </target>
+    <target name="-init-project" depends="-init-private-properties">
+        <property file="nbproject/project.properties"/>
+        <fail unless="src.dir">Must set src.dir</fail>
+        <fail unless="build.dir">Must set build.dir</fail>
+        <fail unless="dist.dir">Must set dist.dir</fail>
+        <fail unless="build.classes.dir">Must set build.classes.dir</fail>
+        <fail unless="dist.jar">Must set dist.jar</fail>
+        <fail unless="main.class">Must set main.class</fail>
+    </target>
+    <target name="-init-check" depends="-init-project"/>
+    <target name="init" depends="-init-check">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${build.classes.dir}"/>
+        <mkdir dir="${dist.dir}"/>
+    </target>
+    <target name="compile" depends="init">
+        <mkdir dir="${build.classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${build.classes.dir}"
+               source="${javac.source}" target="${javac.target}"
+               encoding="${javac.encoding}" debug="true"
+               includeantruntime="false">
+        </javac>
+        <copy todir="${build.classes.dir}">
+            <fileset dir="${src.dir}" excludes="${build.classes.excludes}"/>
+        </copy>
+    </target>
+    <target name="-pre-jar"/>
+    <target name="-do-jar-with-mainclass" depends="init,-pre-jar">
+        <manifest file="manifest.mf" mode="update">
+            <attribute name="Main-Class" value="${main.class}"/>
+        </manifest>
+        <jar destfile="${dist.jar}" basedir="${build.classes.dir}" manifest="manifest.mf" compress="true"/>
+    </target>
+    <target name="jar" depends="compile,-do-jar-with-mainclass"/>
+    <target name="run" depends="compile">
+        <java classname="${main.class}" fork="true" spawn="false">
+            <classpath path="${build.classes.dir}"/>
+        </java>
+    </target>
+    <target name="clean" depends="init">
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+    </target>
+    <target name="deps-clean"/>
+    <target name="javadoc" depends="init">
+        <mkdir dir="${dist.javadoc.dir}"/>
+        <javadoc destdir="${dist.javadoc.dir}" source="${javac.source}" encoding="${javac.encoding}">
+            <fileset dir="${src.dir}"/>
+        </javadoc>
+    </target>
+</project>
