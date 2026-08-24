@@ -3,3 +3,5 @@ dist/
 nbproject/private/
 *.class
 *.bat
+/ClienteTcpImc/nbproject/private/
+/ServidorTcpImc/nbproject/private/

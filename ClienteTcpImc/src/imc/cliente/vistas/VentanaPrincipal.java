@@ -245,8 +245,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             JOptionPane.showConfirmDialog(this, "Cliente OffLine, Conecte con el Servidor");
             return;
         }
-        float peso = Float.parseFloat(campoPeso.getText());
-        float altura = Float.parseFloat(campoAltura.getText());
+        String textoPeso = campoPeso.getText().replace(",", ".");
+        String textoAltura = campoAltura.getText().replace(",", ".");
+        float peso = Float.parseFloat(textoPeso);
+        float altura = Float.parseFloat(textoAltura);
         Thread hilo = new Thread() {
             @Override
             public void run() {
